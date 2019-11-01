@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".menu.features.FingerVerifyFragment">
+
+	<ImageView
+		android:id="@+id/imageView"
+		android:layout_width="275dp"
+		android:layout_height="375dp"
+		android:layout_centerInParent="true"
+		android:src="@drawable/ic_fingerprint" />
+
+	<TextView
+		android:id="@+id/textView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/imageView"
+		android:layout_centerHorizontal="true"
+		android:layout_marginBottom="25dp"
+		android:text="Verify Finger"
+		android:textSize="28sp"
+		android:textStyle="bold" />
+
+	<ProgressBar
+		android:id="@+id/progressBar2"
+		style="?android:attr/progressBarStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/imageView"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="20dp" />
+
+</RelativeLayout>

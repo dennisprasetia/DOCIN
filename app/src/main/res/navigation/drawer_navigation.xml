@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/drawer_navigation"
+	tools:ignore="UnusedNavigation"
+	app:startDestination="@id/nav_home">
+	<fragment
+		android:id="@id/nav_home"
+		android:name="com.wonokoyo.docin.menu.HomeFragment"
+		android:label="@string/menu_home"
+		tools:layout="@layout/fragment_home" />
+	<fragment
+		android:id="@id/nav_planning"
+		android:name="com.wonokoyo.docin.menu.PlanningFragment"
+		android:label="@string/menu_rencana"
+		tools:layout="@layout/fragment_planning" >
+		<action
+			android:id="@+id/action_planning_show_detail"
+			app:destination="@id/planningDetailFragment">
+		</action>
+	</fragment>
+	<fragment
+		android:id="@+id/planningDetailFragment"
+		android:name="com.wonokoyo.docin.menu.PlanningDetailFragment"
+		android:label="Planning Detail"
+		tools:layout="@layout/fragment_planning_detail">
+		<argument
+			android:name="detail_doc"
+			app:argType="com.wonokoyo.docin.model.Doc" />
+	</fragment>
+
+	<fragment
+		android:id="@id/nav_bap_doc"
+		android:name="com.wonokoyo.docin.menu.BapDocFragment"
+		android:label="@string/menu_bap_doc"
+		tools:layout="@layout/fragment_bap_doc" >
+		<action
+			android:id="@+id/action_nav_bap_doc_to_information_confirm"
+			app:destination="@id/docInformationFragment" />
+	</fragment>
+	<fragment
+		android:id="@id/nav_bap_voadip"
+		android:name="com.wonokoyo.docin.menu.BapVoadipFragment"
+		android:label="@string/menu_bpb_voadip"
+		tools:layout="@layout/fragment_bap_voadip" />
+
+	<fragment
+		android:id="@+id/docInformationFragment"
+		android:name="com.wonokoyo.docin.menu.entry.DocInformationFragment"
+		android:label="@string/menu_bap_doc"
+		tools:layout="@layout/fragment_doc_information" >
+		<action
+			android:id="@+id/action_information_confirm_to_take_photo"
+			app:destination="@id/cameraFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/cameraFragment"
+		android:name="com.wonokoyo.docin.menu.features.CameraFragment"
+		android:label="@string/menu_bap_doc"
+		tools:layout="@layout/fragment_camera" >
+		<action
+			android:id="@+id/action_camera_to_result_camera"
+			app:destination="@id/cameraResultFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/docSpjFormFragment"
+		android:name="com.wonokoyo.docin.menu.entry.DocSpjFormFragment"
+		android:label="@string/menu_bap_doc"
+		tools:layout="@layout/fragment_doc_sj_form" >
+		<action
+			android:id="@+id/action_spj_form_to_verify_finger"
+			app:destination="@id/fingerVerifyFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/cameraResultFragment"
+		android:name="com.wonokoyo.docin.menu.features.CameraResultFragment"
+		android:label="Camera Result"
+		tools:layout="@layout/fragment_camera_result" >
+		<action
+			android:id="@+id/action_result_camera_to_spj_form"
+			app:destination="@id/docSpjFormFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/fingerVerifyFragment"
+		android:name="com.wonokoyo.docin.menu.features.FingerVerifyFragment"
+		android:label="Verify Finger"
+		tools:layout="@layout/fragment_doc_finger_verivy" >
+		<action
+			android:id="@+id/action_verify_finger_to_signature"
+			app:destination="@id/signatureFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/signatureFragment"
+		android:name="com.wonokoyo.docin.menu.features.SignatureFragment"
+		android:label="Mitra Signature"
+		tools:layout="@layout/fragment_signature" >
+		<action
+			android:id="@+id/action_signature_to_doc_result"
+			app:destination="@id/docResultFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/docResultFragment"
+		android:name="com.wonokoyo.docin.menu.entry.DocResultFragment"
+		android:label="BAP DOC"
+		tools:layout="@layout/fragment_doc_result" />
+</navigation>

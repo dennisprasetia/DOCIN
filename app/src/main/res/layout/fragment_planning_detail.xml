@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	tools:context=".menu.PlanningDetailFragment"
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="10dp"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/tvShowDetailDoc"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@android:color/holo_blue_bright"
+				android:drawableEnd="@drawable/ic_arrow_drop_up"
+				android:padding="5dp"
+				android:text="Rencana Penerimaan DOC" />
+
+			<LinearLayout
+				android:id="@+id/llChildDetail"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:padding="10dp"
+				android:visibility="visible">
+
+				<TableLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<TableRow>
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="0.5"
+							android:text="No OP DOC" />
+
+						<TextView
+							android:id="@+id/tvNoOpDoc"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1" />
+					</TableRow>
+
+					<TableRow>
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="0.5"
+							android:text="Tgl DOC In" />
+
+						<TextView
+							android:id="@+id/tvTglDoc"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1" />
+					</TableRow>
+
+					<TableRow>
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="0.5"
+							android:text="Mitra" />
+
+						<TextView
+							android:id="@+id/tvMitraDoc"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1" />
+					</TableRow>
+
+					<TableRow>
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="0.5"
+							android:text="Noreg" />
+
+						<TextView
+							android:id="@+id/tvNoregDoc"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1" />
+					</TableRow>
+
+					<TableRow>
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="0.5"
+							android:text="Kandang" />
+
+						<TextView
+							android:id="@+id/tvKandangDoc"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1" />
+					</TableRow>
+
+					<TableRow>
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="0.5"
+							android:text="Alamat" />
+
+						<TextView
+							android:id="@+id/tvAlamatDoc"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1" />
+					</TableRow>
+
+					<TableRow>
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="0.5"
+							android:text="Populasi" />
+
+						<TextView
+							android:id="@+id/tvPopulasiDoc"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1" />
+					</TableRow>
+
+					<TableRow>
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="0.5"
+							android:text="Jumlah Box" />
+
+						<TextView
+							android:id="@+id/tvJumlahBox"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1" />
+					</TableRow>
+
+				</TableLayout>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:padding="10dp">
+
+			<TextView
+				android:id="@+id/tvShowDetailVoadip"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@android:color/holo_blue_bright"
+				android:drawableEnd="@drawable/ic_arrow_drop_up"
+				android:padding="5dp"
+				android:text="Rencana Penerimaan Voadip" />
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rvVoadip"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:visibility="visible"
+				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+			</androidx.recyclerview.widget.RecyclerView>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+</ScrollView>
