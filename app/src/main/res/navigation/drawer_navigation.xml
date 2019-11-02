@@ -43,7 +43,11 @@
 		android:id="@id/nav_bap_voadip"
 		android:name="com.wonokoyo.docin.menu.BapVoadipFragment"
 		android:label="@string/menu_bpb_voadip"
-		tools:layout="@layout/fragment_bap_voadip" />
+		tools:layout="@layout/fragment_bap_voadip" >
+		<action
+			android:id="@+id/action_nav_bap_voadip_to_voadip_information"
+			app:destination="@id/voadipInformationFragment" />
+	</fragment>
 
 	<fragment
 		android:id="@+id/docInformationFragment"
@@ -80,6 +84,9 @@
 		<action
 			android:id="@+id/action_result_camera_to_spj_form"
 			app:destination="@id/docSpjFormFragment" />
+		<action
+			android:id="@+id/action_result_camera_to_voadip_sj_form"
+			app:destination="@id/voadipSjFormFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/fingerVerifyFragment"
@@ -98,10 +105,44 @@
 		<action
 			android:id="@+id/action_signature_to_doc_result"
 			app:destination="@id/docResultFragment" />
+		<action
+			android:id="@+id/action_signatureFragment_to_voadipResultFragment"
+			app:destination="@id/voadipResultFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/docResultFragment"
 		android:name="com.wonokoyo.docin.menu.entry.DocResultFragment"
 		android:label="BAP DOC"
-		tools:layout="@layout/fragment_doc_result" />
+		tools:layout="@layout/fragment_doc_result" >
+		<action
+			android:id="@+id/action_docResultFragment_to_nav_bap_doc"
+			app:destination="@id/nav_bap_doc" />
+	</fragment>
+	<fragment
+		android:id="@+id/voadipInformationFragment"
+		android:name="com.wonokoyo.docin.menu.entry.VoadipInformationFragment"
+		android:label="fragment_voadip_information"
+		tools:layout="@layout/fragment_voadip_information" >
+		<action
+			android:id="@+id/action_voadip_information_to_take_picture"
+			app:destination="@id/cameraFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/voadipSjFormFragment"
+		android:name="com.wonokoyo.docin.menu.entry.VoadipSjFormFragment"
+		android:label="fragment_voadip_sj_form"
+		tools:layout="@layout/fragment_voadip_sj_form" >
+		<action
+			android:id="@+id/action_voadip_sj_form_to_finger_verify"
+			app:destination="@id/fingerVerifyFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/voadipResultFragment"
+		android:name="com.wonokoyo.docin.menu.entry.VoadipResultFragment"
+		android:label="fragment_voadip_result"
+		tools:layout="@layout/fragment_voadip_result" >
+		<action
+			android:id="@+id/action_voadipResultFragment_to_nav_bap_voadip"
+			app:destination="@id/nav_bap_voadip" />
+	</fragment>
 </navigation>
