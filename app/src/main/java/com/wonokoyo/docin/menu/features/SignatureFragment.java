@@ -1,7 +1,9 @@
 package com.wonokoyo.docin.menu.features;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -72,6 +74,10 @@ public class SignatureFragment extends Fragment {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
                     outputStream.flush();
                     outputStream.close();
+
+                    Intent mediaStoreUpdate = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                    mediaStoreUpdate.setData(Uri.fromFile(file));
+                    getActivity().sendBroadcast(mediaStoreUpdate);
 
                     Bundle bundle = new Bundle();
                     bundle.putString("url_sign", file.getAbsolutePath());
