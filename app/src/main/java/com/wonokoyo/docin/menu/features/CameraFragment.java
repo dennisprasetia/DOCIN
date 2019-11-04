@@ -79,15 +79,9 @@ public class CameraFragment extends Fragment {
         imgBtnCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File file = null;
+                File file = new File(imageFilename);
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         == PackageManager.PERMISSION_GRANTED) {
-                    try {
-                        file = createImageFilename();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
                     imgCap.takePicture(file, new ImageCapture.OnImageSavedListener() {
                         @Override
                         public void onImageSaved(@NonNull File file) {
@@ -122,7 +116,13 @@ public class CameraFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_STORAGE_CODE) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                try {
+                    createImageFilename();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
                 Toast.makeText(getContext(), "App won't run without permission", Toast.LENGTH_SHORT).show();
             }
         }
