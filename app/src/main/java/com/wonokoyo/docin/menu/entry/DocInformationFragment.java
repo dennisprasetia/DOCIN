@@ -33,7 +33,7 @@ public class DocInformationFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        btnNext = view.findViewById(R.id.btnNextCaptureSpj);
+        btnNext = view.findViewById(R.id.btnNextCaptureSj);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

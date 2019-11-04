@@ -72,7 +72,7 @@ public class BapVoadipFragment extends Fragment implements ZXingScannerView.Resu
                 ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
 
         if (rawResult.getText().equalsIgnoreCase("confirmed")) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_nav_bap_doc_to_information_confirm);
+            NavHostFragment.findNavController(this).navigate(R.id.action_nav_bap_voadip_to_voadip_information);
         }
         // Note:
         // * Wait 2 seconds to resume the preview.
