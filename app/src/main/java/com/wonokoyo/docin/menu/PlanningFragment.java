@@ -22,6 +22,7 @@ import com.wonokoyo.docin.adapter.PlanningVoadipAdapter;
 import com.wonokoyo.docin.model.Doc;
 import com.wonokoyo.docin.model.ItemVoadip;
 import com.wonokoyo.docin.model.Voadip;
+import com.wonokoyo.docin.sqlite.DbHelper;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,8 @@ public class PlanningFragment extends Fragment {
 
     PlanningAdapter adapter;
 
+    DbHelper dbHelper;
+
     public PlanningFragment() {
         // Required empty public constructor
     }
@@ -40,6 +43,8 @@ public class PlanningFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        dbHelper = new DbHelper(getContext());
 
         docs = new ArrayList<>();
         ArrayList<Voadip> voadips;
@@ -84,6 +89,8 @@ public class PlanningFragment extends Fragment {
 
             docs.add(doc);
         }
+
+        dbHelper.insertDoc(docs);
     }
 
     @Override
