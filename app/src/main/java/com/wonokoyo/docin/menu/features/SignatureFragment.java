@@ -19,6 +19,8 @@ import android.widget.ImageView;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.wonokoyo.docin.R;
+import com.wonokoyo.docin.model.Doc;
+import com.wonokoyo.docin.model.Voadip;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,6 +36,10 @@ public class SignatureFragment extends Fragment {
 
     private File signFolder;
     private String signFilename;
+
+    private String session;
+    private Doc mDoc;
+    private Voadip mVoadip;
 
     public SignatureFragment() {
         // Required empty public constructor
@@ -51,6 +57,10 @@ public class SignatureFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        session = getArguments().getString("session");
+        mDoc = (Doc) getArguments().getSerializable("doc");
+        mVoadip = (Voadip) getArguments().getSerializable("voadip");
+
         signaturePad = view.findViewById(R.id.signPad);
 
         ivRefresh = view.findViewById(R.id.ivRefresh);
@@ -80,12 +90,17 @@ public class SignatureFragment extends Fragment {
                     getActivity().sendBroadcast(mediaStoreUpdate);
 
                     Bundle bundle = new Bundle();
-                    bundle.putString("url_sign", file.getAbsolutePath());
-                    bundle.putString("url_sj", getArguments().getString("url_sj"));
 
-                    if (getArguments().getString("session").equalsIgnoreCase("doc"))
+                    if (session.equalsIgnoreCase("doc")) {
+                        mDoc.setUrlSign(signFilename);
+
+                        bundle.putSerializable("doc", mDoc);
+
                         NavHostFragment.findNavController(getParentFragment())
                                 .navigate(R.id.action_signature_to_doc_result, bundle);
+                    } else {
+
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

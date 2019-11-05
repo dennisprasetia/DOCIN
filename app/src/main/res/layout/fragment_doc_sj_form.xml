@@ -38,9 +38,11 @@
 			</TableRow>
 
 			<TableRow>
+
 				<EditText
-					android:id="@+id/etNoSj"
-					android:layout_weight="1" />
+					android:id="@+id/etNoSjDoc"
+					android:layout_weight="1"
+					android:inputType="textPersonName" />
 			</TableRow>
 
 			<TableRow>
@@ -50,9 +52,11 @@
 			</TableRow>
 
 			<TableRow>
+
 				<EditText
 					android:id="@+id/etJenisDoc"
-					android:layout_weight="1"/>
+					android:layout_weight="1"
+					android:inputType="textPersonName" />
 			</TableRow>
 
 			<TableRow>
@@ -65,12 +69,16 @@
 			</TableRow>
 
 			<TableRow>
+
 				<EditText
 					android:id="@+id/etJumlahBox"
-					android:layout_weight="1"/>
+					android:layout_weight="1"
+					android:inputType="number" />
+
 				<EditText
 					android:id="@+id/etMatiEkor"
-					android:layout_weight="1"/>
+					android:layout_weight="1"
+					android:inputType="number" />
 			</TableRow>
 
 			<TableRow>
@@ -83,12 +91,16 @@
 			</TableRow>
 
 			<TableRow>
+
 				<EditText
 					android:id="@+id/etEkorTerima"
-					android:layout_weight="1"/>
+					android:layout_weight="1"
+					android:inputType="number" />
+
 				<EditText
 					android:id="@+id/etBbRata"
-					android:layout_weight="1"/>
+					android:layout_weight="1"
+					android:inputType="number|numberDecimal" />
 			</TableRow>
 
 			<TableRow>
@@ -98,9 +110,11 @@
 			</TableRow>
 
 			<TableRow>
+
 				<EditText
 					android:id="@+id/etKeteranganDoc"
-					android:layout_weight="1"/>
+					android:layout_weight="1"
+					android:inputType="textPersonName" />
 			</TableRow>
 		</TableLayout>
 

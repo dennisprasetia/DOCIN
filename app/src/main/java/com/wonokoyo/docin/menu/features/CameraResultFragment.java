@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.wonokoyo.docin.R;
+import com.wonokoyo.docin.model.Doc;
+import com.wonokoyo.docin.model.Voadip;
 
 import java.io.File;
 
@@ -28,6 +30,11 @@ public class CameraResultFragment extends Fragment {
     private ImageView ivResult;
     private Button btnRetake;
     private Button btnNext;
+
+    private String session;
+    private String url;
+    private Doc mDoc;
+    private Voadip mVoadip;
 
     public CameraResultFragment() {
         // Required empty public constructor
@@ -43,8 +50,10 @@ public class CameraResultFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final String session = getArguments().getString("session");
-        final String url = getArguments().getString("url");
+        session = getArguments().getString("session");
+        url = getArguments().getString("url");
+        mDoc = (Doc) getArguments().getSerializable("doc");
+        mVoadip = (Voadip) getArguments().getSerializable("voadip");
 
         final File file = new File(url);
         Bitmap bitmap = new BitmapDrawable(getContext().getResources(), file.getAbsolutePath()).getBitmap();
@@ -73,12 +82,17 @@ public class CameraResultFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("session", session);
-                bundle.putString("url", url);
 
-                if (session.equalsIgnoreCase("doc"))
+                if (session.equalsIgnoreCase("doc")) {
+                    bundle.putString("session", session);
+                    bundle.putString("url", url);
+                    bundle.putSerializable("doc", mDoc);
+
                     NavHostFragment.findNavController(getParentFragment())
                             .navigate(R.id.action_result_camera_to_spj_form, bundle);
+                } else {
+
+                }
             }
         });
     }

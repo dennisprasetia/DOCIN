@@ -16,7 +16,6 @@ import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Environment;
@@ -32,6 +31,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.wonokoyo.docin.R;
+import com.wonokoyo.docin.model.Doc;
+import com.wonokoyo.docin.model.Voadip;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,6 +54,9 @@ public class CameraFragment extends Fragment {
 
     private String session;
 
+    private Doc mDoc = null;
+    private Voadip mVoadip = null;
+
     public CameraFragment() {
         // Required empty public constructor
     }
@@ -71,7 +75,10 @@ public class CameraFragment extends Fragment {
         viewCamera = view.findViewById(R.id.viewCamera);
 
         session = getArguments().getString("session");
-        Toast.makeText(getContext(), session, Toast.LENGTH_SHORT).show();
+        if (session.equalsIgnoreCase("doc"))
+            mDoc = (Doc) getArguments().getSerializable("doc");
+        else
+            mVoadip = (Voadip) getArguments().getSerializable("voadip");
 
         startCamera();
 
@@ -216,6 +223,8 @@ public class CameraFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("session", session);
                 bundle.putString("url", imageFilename);
+                bundle.putSerializable("doc", mDoc);
+                bundle.putSerializable("voadip", mVoadip);
 
                 NavHostFragment.findNavController(getParentFragment())
                         .navigate(R.id.action_camera_to_result_camera, bundle);

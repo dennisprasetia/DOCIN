@@ -115,7 +115,7 @@
 		android:label="BAP DOC"
 		tools:layout="@layout/fragment_doc_result" >
 		<action
-			android:id="@+id/action_docResultFragment_to_nav_bap_doc"
+			android:id="@+id/action_doc_result_to_nav_bap_doc"
 			app:destination="@id/nav_bap_doc" />
 	</fragment>
 	<fragment

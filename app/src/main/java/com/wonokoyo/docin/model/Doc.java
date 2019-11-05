@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Doc implements Serializable {
     private String noOpDoc;
     private String tanggalDoc;
+    private String noSj;
     private String mitra;
     private String noreg;
     private int kandang;
@@ -15,6 +16,13 @@ public class Doc implements Serializable {
     private String nopol;
     private String sopir;
     private String kedatangan;
+    private String jenis;
+    private int mati;
+    private int ekorTerima;
+    private double bbRata;
+    private String keterangan;
+    private String url;
+    private String urlSign;
     private ArrayList<Voadip> voadips;
 
     public Doc() {
@@ -35,6 +43,14 @@ public class Doc implements Serializable {
 
     public void setTanggalDoc(String tanggalDoc) {
         this.tanggalDoc = tanggalDoc;
+    }
+
+    public String getNoSj() {
+        return noSj;
+    }
+
+    public void setNoSj(String noSj) {
+        this.noSj = noSj;
     }
 
     public String getMitra() {
@@ -85,10 +101,6 @@ public class Doc implements Serializable {
         this.jumlahBox = jumlahBox;
     }
 
-    public ArrayList<Voadip> getVoadips() {
-        return voadips;
-    }
-
     public String getNopol() {
         return nopol;
     }
@@ -113,7 +125,67 @@ public class Doc implements Serializable {
         this.kedatangan = kedatangan;
     }
 
+    public String getJenis() {
+        return jenis;
+    }
+
+    public void setJenis(String jenis) {
+        this.jenis = jenis;
+    }
+
+    public int getMati() {
+        return mati;
+    }
+
+    public void setMati(int mati) {
+        this.mati = mati;
+    }
+
+    public int getEkorTerima() {
+        return ekorTerima;
+    }
+
+    public void setEkorTerima(int ekorTerima) {
+        this.ekorTerima = ekorTerima;
+    }
+
+    public double getBbRata() {
+        return bbRata;
+    }
+
+    public void setBbRata(double bbRata) {
+        this.bbRata = bbRata;
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrlSign() {
+        return urlSign;
+    }
+
+    public void setUrlSign(String urlSign) {
+        this.urlSign = urlSign;
+    }
+
     public void setVoadips(ArrayList<Voadip> voadips) {
         this.voadips = voadips;
+    }
+
+    public ArrayList<Voadip> getVoadips() {
+        return voadips;
     }
 }

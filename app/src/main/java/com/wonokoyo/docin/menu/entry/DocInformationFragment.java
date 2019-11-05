@@ -44,7 +44,7 @@ public class DocInformationFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Doc doc = (Doc) getArguments().getSerializable("doc");
+        final Doc doc = (Doc) getArguments().getSerializable("doc");
 
         tvInfoNoOp = view.findViewById(R.id.tvInfoNoOp);
         tvInfoNoOp.setText(doc.getNoOpDoc());
@@ -71,6 +71,7 @@ public class DocInformationFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("session", "doc");
+                bundle.putSerializable("doc", doc);
 
                 NavHostFragment.findNavController(getParentFragment())
                         .navigate(R.id.action_information_confirm_to_take_photo, bundle);
