@@ -12,6 +12,9 @@ public class Doc implements Serializable {
     private String alamat;
     private int populasi;
     private int jumlahBox;
+    private String nopol;
+    private String sopir;
+    private String kedatangan;
     private ArrayList<Voadip> voadips;
 
     public Doc() {
@@ -84,6 +87,30 @@ public class Doc implements Serializable {
 
     public ArrayList<Voadip> getVoadips() {
         return voadips;
+    }
+
+    public String getNopol() {
+        return nopol;
+    }
+
+    public void setNopol(String nopol) {
+        this.nopol = nopol;
+    }
+
+    public String getSopir() {
+        return sopir;
+    }
+
+    public void setSopir(String sopir) {
+        this.sopir = sopir;
+    }
+
+    public String getKedatangan() {
+        return kedatangan;
+    }
+
+    public void setKedatangan(String kedatangan) {
+        this.kedatangan = kedatangan;
     }
 
     public void setVoadips(ArrayList<Voadip> voadips) {

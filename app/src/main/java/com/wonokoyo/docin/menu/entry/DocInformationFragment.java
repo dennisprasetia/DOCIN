@@ -12,12 +12,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.wonokoyo.docin.R;
+import com.wonokoyo.docin.model.Doc;
 
 public class DocInformationFragment extends Fragment {
 
     private Button btnNext;
+    private TextView tvInfoNoOp;
+    private TextView tvInfoMitra;
+    private TextView tvInfoNoreg;
+    private TextView tvInfoKandang;
+    private TextView tvInfoAlamat;
+    private TextView tvInfoJumlahBox;
+    private TextView tvInfoNopol;
+    private TextView tvInfoSopir;
+    private TextView tvInfoKedatangan;
 
     public DocInformationFragment() {
         // Required empty public constructor
@@ -33,6 +44,27 @@ public class DocInformationFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Doc doc = (Doc) getArguments().getSerializable("doc");
+
+        tvInfoNoOp = view.findViewById(R.id.tvInfoNoOp);
+        tvInfoNoOp.setText(doc.getNoOpDoc());
+        tvInfoMitra = view.findViewById(R.id.tvInfoMitra);
+        tvInfoMitra.setText(doc.getMitra());
+        tvInfoNoreg = view.findViewById(R.id.tvInfoNoreg);
+        tvInfoNoreg.setText(doc.getNoreg());
+        tvInfoKandang = view.findViewById(R.id.tvInfoKandang);
+        tvInfoKandang.setText(String.valueOf(doc.getKandang()));
+        tvInfoAlamat = view.findViewById(R.id.tvInfoAlamat);
+        tvInfoAlamat.setText(doc.getAlamat());
+        tvInfoJumlahBox = view.findViewById(R.id.tvInfoJumlahBox);
+        tvInfoJumlahBox.setText(String.valueOf(doc.getJumlahBox()));
+        tvInfoNopol = view.findViewById(R.id.tvInfoNopol);
+        tvInfoNopol.setText(doc.getNopol());
+        tvInfoSopir = view.findViewById(R.id.tvInfoSopir);
+        tvInfoSopir.setText(doc.getSopir());
+        tvInfoKedatangan = view.findViewById(R.id.tvInfoKedatangan);
+        tvInfoKedatangan.setText(doc.getKedatangan());
+
         btnNext = view.findViewById(R.id.btnNextCaptureSj);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.wonokoyo.docin.R;
+import com.wonokoyo.docin.model.Doc;
+import com.wonokoyo.docin.sqlite.DbHelper;
+import com.wonokoyo.docin.sqlite.DbService;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -27,6 +30,8 @@ public class BapDocFragment extends Fragment implements ZXingScannerView.ResultH
     private final static int REQUEST_CAMERA_CODE = 10;
 
     private FrameLayout frameLayout;
+
+    DbService dbService;
 
     public BapDocFragment() {
         // Required empty public constructor
@@ -37,6 +42,9 @@ public class BapDocFragment extends Fragment implements ZXingScannerView.ResultH
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         requestPermissions(new String[] {Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE);
+
+        dbService = new DbService(getContext());
+
         return inflater.inflate(R.layout.fragment_bap_doc, container, false);
     }
 
@@ -67,12 +75,20 @@ public class BapDocFragment extends Fragment implements ZXingScannerView.ResultH
 
     @Override
     public void handleResult(Result rawResult) {
-        Toast.makeText(getActivity(), "Contents = " + rawResult.getText() +
-                ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
+        Doc doc = dbService.getDocByScanSpj(rawResult.getText());
 
-        if (rawResult.getText().equalsIgnoreCase("confirmed")) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_nav_bap_doc_to_information_confirm);
+        // cari doc sesuai no op
+        if (doc != null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("doc", doc);
+
+            NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_nav_bap_doc_to_information_confirm, bundle);
+        } else {
+            Toast.makeText(getActivity(), "No OP = " + rawResult.getText() + " Tidak ditemukan",
+                    Toast.LENGTH_SHORT).show();
         }
+
         // Note:
         // * Wait 2 seconds to resume the preview.
         // * On older devices continuously stopping and resuming camera preview can result in freezing the app.

@@ -21,8 +21,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String table_doc = "CREATE TABLE doc (id_doc integer, no_op_doc text, tanggal_doc text, mitra text, noreg text, " +
-                "kandang integer, alamat text, populasi integer, jumlah_box integer)";
+        String table_doc = "CREATE TABLE doc (id_doc integer, no_op_doc text, mitra text, noreg text, " +
+                "kandang integer, alamat text, jumlah_box integer, nopol text, sopir text, kedatangan text)";
         db.execSQL(table_doc);
 
         String table_voadip = "CREATE TABLE voadip (id_voadip integer, id_doc integer, no_op_voadip text, " +
@@ -58,13 +58,14 @@ public class DbHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put("id_doc", id_doc);
             values.put("no_op_doc", doc.getNoOpDoc());
-            values.put("tanggal_doc", doc.getTanggalDoc());
             values.put("mitra", doc.getMitra());
             values.put("noreg", doc.getNoreg());
             values.put("kandang", doc.getKandang());
             values.put("alamat", doc.getAlamat());
-            values.put("populasi", doc.getPopulasi());
             values.put("jumlah_box", doc.getJumlahBox());
+            values.put("nopol", "N 1256 FG");
+            values.put("sopir", "SUPRAYITNO");
+            values.put("kedatangan", (i + 1) + " November 2019 2" + i + ":00");
 
             database.insert("doc", null, values);
 
@@ -110,5 +111,32 @@ public class DbHelper extends SQLiteOpenHelper {
 
             database.insert("item_voadip", null, values);
         }
+    }
+
+    public Cursor getData(String table) {
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        String sql = "SELECT * FROM " + table;
+        Cursor cursor = database.rawQuery(sql, null);
+
+        return cursor;
+    }
+
+    public Cursor getDataByNoreg(String table, String no_op) {
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        String sql = "SELECT * FROM " + table + " WHERE no_op_doc = '" + no_op + "'";
+        Cursor cursor = database.rawQuery(sql, null);
+
+        return cursor;
+    }
+
+    public Cursor getItemByVoadip(String id_voadip) {
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        String sql = "SELECT * FROM item_voadip WHERE id_voadip = '" + id_voadip + "'";
+        Cursor cursor = database.rawQuery(sql, null);
+
+        return cursor;
     }
 }
