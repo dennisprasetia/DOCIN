@@ -23,6 +23,7 @@ import com.wonokoyo.docin.model.Doc;
 import com.wonokoyo.docin.model.ItemVoadip;
 import com.wonokoyo.docin.model.Voadip;
 import com.wonokoyo.docin.sqlite.DbHelper;
+import com.wonokoyo.docin.utility.SessionManager;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,8 @@ public class PlanningFragment extends Fragment {
 
     DbHelper dbHelper;
 
+    SessionManager sm;
+
     public PlanningFragment() {
         // Required empty public constructor
     }
@@ -45,6 +48,8 @@ public class PlanningFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         dbHelper = new DbHelper(getContext());
+
+        sm = new SessionManager(getContext());
 
         docs = new ArrayList<>();
         ArrayList<Voadip> voadips;
@@ -90,7 +95,10 @@ public class PlanningFragment extends Fragment {
             docs.add(doc);
         }
 
-        dbHelper.insertDoc(docs);
+        if (!sm.createDb()) {
+            dbHelper.insertDoc(docs);
+            sm.saveSPBoolean(SessionManager.SM_CREATE_DB, true);
+        }
     }
 
     @Override
