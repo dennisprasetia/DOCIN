@@ -10,7 +10,7 @@
 		<item android:id="@+id/nav_bap_doc"
 			android:icon="@drawable/ic_menu_entry"
 			android:title="@string/menu_bap_doc"/>
-		<item android:id="@+id/nav_bap_voadip"
+		<item android:id="@+id/nav_bpb_voadip"
 			android:icon="@drawable/ic_menu_entry"
 			android:title="@string/menu_bpb_voadip"/>
 		<item android:id="@+id/nav_realisasi"

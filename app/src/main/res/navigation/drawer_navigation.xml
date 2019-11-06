@@ -40,7 +40,7 @@
 			app:destination="@id/docInformationFragment" />
 	</fragment>
 	<fragment
-		android:id="@id/nav_bap_voadip"
+		android:id="@id/nav_bpb_voadip"
 		android:name="com.wonokoyo.docin.menu.BapVoadipFragment"
 		android:label="@string/menu_bpb_voadip"
 		tools:layout="@layout/fragment_bap_voadip" >
@@ -61,7 +61,7 @@
 	<fragment
 		android:id="@+id/cameraFragment"
 		android:name="com.wonokoyo.docin.menu.features.CameraFragment"
-		android:label="@string/menu_bap_doc"
+		android:label="Take Picture"
 		tools:layout="@layout/fragment_camera" >
 		<action
 			android:id="@+id/action_camera_to_result_camera"
@@ -145,4 +145,9 @@
 			android:id="@+id/action_voadipResultFragment_to_nav_bap_voadip"
 			app:destination="@id/nav_bap_voadip" />
 	</fragment>
+	<fragment
+		android:id="@id/nav_realisasi"
+		android:name="com.wonokoyo.docin.menu.RealisationFragment"
+		android:label="Realisasi DOC In"
+		tools:layout="@layout/fragment_realisation" />
 </navigation>
