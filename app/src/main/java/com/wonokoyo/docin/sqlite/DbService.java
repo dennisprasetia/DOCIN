@@ -57,4 +57,17 @@ public class DbService {
             return null;
         }
     }
+
+    public Voadip getVoadipByScanOp(String no_op) {
+        Voadip voadip = new Voadip();
+
+        Cursor cursor = dbHelper.getDataByNoreg("voadip", no_op);
+        if (cursor.getCount() > 0) {
+            cursor.moveToLast();
+
+            return voadip;
+        } else {
+            return null;
+        }
+    }
 }

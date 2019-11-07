@@ -1,13 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:orientation="vertical"
 	tools:context=".menu.entry.VoadipSjFormFragment">
 
-	<TextView
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:text="@string/hello_blank_fragment" />
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:padding="10dp">
 
-</FrameLayout>
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Realisasi Penerimaan Voadip"
+			android:textSize="20sp"
+			android:textStyle="bold" />
+
+		<ImageView
+			android:id="@+id/ivSjVoadip"
+			android:layout_width="match_parent"
+			android:layout_height="425dp"
+			android:layout_margin="5dp" />
+
+		<TableLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<TableRow>
+
+				<TextView
+					android:layout_weight="1"
+					android:text="No SJ"
+					android:textStyle="bold" />
+			</TableRow>
+
+			<TableRow>
+
+				<EditText
+					android:id="@+id/etNoSjVoadip"
+					android:layout_weight="1"
+					android:inputType="textPersonName" />
+			</TableRow>
+
+			<TableRow>
+
+				<TextView
+					android:layout_marginBottom="5dp"
+					android:layout_weight="1"
+					android:text="Detail Barang"
+					android:textStyle="bold" />
+			</TableRow>
+
+			<TableRow>
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/rvFormVoadip"
+					android:layout_height="300dp"
+					android:layout_weight="1" />
+			</TableRow>
+		</TableLayout>
+
+		<Button
+			android:id="@+id/btnNextToFormVoadip"
+			android:layout_width="100dp"
+			android:layout_height="wrap_content"
+			android:drawableEnd="@drawable/ic_arrow_right"
+			android:text="Next"
+			android:layout_marginTop="10dp"
+			android:layout_gravity="end"/>
+
+	</LinearLayout>
+
+</ScrollView>

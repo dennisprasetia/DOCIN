@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="10dp"
+	android:orientation="vertical">
+
+	<TextView
+		android:id="@+id/tvNamaItem"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="TextView" />
+
+	<TableLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<TableRow>
+
+			<TextView
+				android:layout_weight="0.5"
+				android:text="@string/kemasan" />
+
+			<TextView
+				android:layout_weight="0.5"
+				android:text="@string/jumlah" />
+		</TableRow>
+
+		<TableRow>
+
+			<EditText
+				android:id="@+id/etKemasan"
+				android:layout_weight="0.5"
+				android:inputType="number" />
+
+			<EditText
+				android:id="@+id/etJumlah"
+				android:layout_weight="0.5"
+				android:inputType="number" />
+		</TableRow>
+	</TableLayout>
+</LinearLayout>

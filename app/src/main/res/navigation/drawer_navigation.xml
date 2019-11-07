@@ -143,7 +143,7 @@
 		tools:layout="@layout/fragment_voadip_result" >
 		<action
 			android:id="@+id/action_voadipResultFragment_to_nav_bap_voadip"
-			app:destination="@id/nav_bap_voadip" />
+			app:destination="@id/nav_bpb_voadip" />
 	</fragment>
 	<fragment
 		android:id="@id/nav_realisasi"
