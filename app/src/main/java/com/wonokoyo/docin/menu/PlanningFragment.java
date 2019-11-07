@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.wonokoyo.docin.R;
 import com.wonokoyo.docin.adapter.PlanningAdapter;
@@ -22,10 +23,21 @@ import com.wonokoyo.docin.adapter.PlanningVoadipAdapter;
 import com.wonokoyo.docin.model.Doc;
 import com.wonokoyo.docin.model.ItemVoadip;
 import com.wonokoyo.docin.model.Voadip;
+import com.wonokoyo.docin.serveraccess.RetrofitInstance;
 import com.wonokoyo.docin.sqlite.DbHelper;
 import com.wonokoyo.docin.utility.SessionManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PlanningFragment extends Fragment {
     private RecyclerView rvPlanning;
@@ -38,6 +50,8 @@ public class PlanningFragment extends Fragment {
     DbHelper dbHelper;
 
     SessionManager sm;
+
+    private OnFragmentInteractionListener mListener;
 
     public PlanningFragment() {
         // Required empty public constructor
@@ -111,6 +125,8 @@ public class PlanningFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        getPlanFromServer();
+
         adapter = new PlanningAdapter(getContext(), getActivity());
 
         rvPlanning = view.findViewById(R.id.rvPlanning);
@@ -121,6 +137,59 @@ public class PlanningFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 adapter.syncPlanning(docs);
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+            mListener = (OnFragmentInteractionListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onGetPlanInteraction(String date);
+    }
+
+    public void getPlanFromServer() {
+        String test = "test";
+
+        Call<ResponseBody> call = RetrofitInstance.docService().getPlanningDoc("2019-11-10");
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        JSONArray jsonArray = jsonObject.getJSONArray("content");
+
+                        if (jsonArray.length() > 0) {
+                            Toast.makeText(getContext(), "Receive data successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                if (t.getMessage().equalsIgnoreCase("timeout")) {
+                    Toast.makeText(getContext(), "Connection failure", Toast.LENGTH_LONG).show();
+                }
+
+                if (t.getMessage().contains("failed to connect")) {
+                    Toast.makeText(getContext(), "Server not contactable", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

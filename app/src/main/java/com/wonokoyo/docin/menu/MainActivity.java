@@ -21,7 +21,8 @@ import com.wonokoyo.docin.R;
 
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener, PlanningFragment.OnFragmentInteractionListener {
 
     private DrawerLayout drawer;
     private NavController navController;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         topLevelDestinations.add(R.id.nav_home);
         topLevelDestinations.add(R.id.nav_planning);
         topLevelDestinations.add(R.id.nav_bap_doc);
-        topLevelDestinations.add(R.id.nav_bap_voadip);
+        topLevelDestinations.add(R.id.nav_bpb_voadip);
         topLevelDestinations.add(R.id.nav_contact);
         topLevelDestinations.add(R.id.nav_setting);
 
@@ -88,5 +89,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         tvUser = navigationView.getHeaderView(0).findViewById(R.id.tvUser);
         tvUser.setText(getIntent().getStringExtra("username"));
+    }
+
+    @Override
+    public void onGetPlanInteraction(String date) {
+
     }
 }
