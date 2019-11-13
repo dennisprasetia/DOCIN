@@ -17,14 +17,15 @@ import com.wonokoyo.docin.menu.PlanningFragmentDirections;
 import com.wonokoyo.docin.model.Doc;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlanningAdapter extends RecyclerView.Adapter<PlanningAdapter.PlanningViewHolder> {
-    ArrayList<Doc> listPlanning;
+    List<Doc> listPlanning;
     Context mContext;
     Activity mActivity;
 
-    public PlanningAdapter(Context context, Activity activity) {
-        this.listPlanning = new ArrayList<>();
+    public PlanningAdapter(Context context, Activity activity, List<Doc> docs) {
+        this.listPlanning = docs;
         this.mContext = context;
         this.mActivity = activity;
     }
@@ -58,7 +59,7 @@ public class PlanningAdapter extends RecyclerView.Adapter<PlanningAdapter.Planni
         return listPlanning.size();
     }
 
-    public void syncPlanning(ArrayList<Doc> listPlanning) {
+    public void syncPlanning(List<Doc> listPlanning) {
         this.listPlanning.clear();
         this.listPlanning.addAll(listPlanning);
         notifyDataSetChanged();

@@ -6,6 +6,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +26,7 @@ import com.wonokoyo.docin.adapter.PlanningVoadipAdapter;
 import com.wonokoyo.docin.model.Doc;
 import com.wonokoyo.docin.model.ItemVoadip;
 import com.wonokoyo.docin.model.Voadip;
+import com.wonokoyo.docin.model.viewmodel.DocViewModel;
 import com.wonokoyo.docin.serveraccess.RetrofitInstance;
 import com.wonokoyo.docin.sqlite.DbHelper;
 import com.wonokoyo.docin.utility.SessionManager;
@@ -33,6 +37,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -43,76 +48,14 @@ public class PlanningFragment extends Fragment {
     private RecyclerView rvPlanning;
     private Button btnSync;
 
-    ArrayList<Doc> docs;
-
     PlanningAdapter adapter;
-
-    DbHelper dbHelper;
-
-    SessionManager sm;
 
     private OnFragmentInteractionListener mListener;
 
+    DocViewModel docViewModel;
+
     public PlanningFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        dbHelper = new DbHelper(getContext());
-
-        sm = new SessionManager(getContext());
-
-        docs = new ArrayList<>();
-        ArrayList<Voadip> voadips;
-        ArrayList<ItemVoadip> itemVoadips;
-
-        for (int i = 0; i < 3; i++) {
-            Doc doc = new Doc();
-            doc.setMitra("Dennis " + i);
-            doc.setNoreg("11001102" + i);
-            doc.setAlamat("Wonokoyo Jaya");
-            doc.setKandang(i + 1);
-            doc.setPopulasi(20000);
-            doc.setTanggalDoc((i + 1) + " November 2019");
-            doc.setJumlahBox(200);
-            doc.setNoOpDoc(i + "5566/2019");
-
-            voadips = new ArrayList<>();
-
-            for (int j = 1; j <= 3; j++) {
-                Voadip voadip = new Voadip();
-                voadip.setDoc(doc);
-                voadip.setSupplier("PT Sumber " + i + " Supplier " + j);
-                voadip.setNoOp("JM" + j + "0002" + i + "/19");
-                voadip.setTglKirim(j + " November 2019");
-
-                itemVoadips = new ArrayList<>();
-
-                for (int k = 1; k <= 3; k++) {
-                    ItemVoadip itemVoadip = new ItemVoadip();
-                    itemVoadip.setVoadip(voadip);
-                    itemVoadip.setName("Eurosol " + k + "00");
-                    itemVoadip.setPacking("1000mL");
-                    itemVoadip.setAmmount(2);
-
-                    itemVoadips.add(itemVoadip);
-                }
-                voadip.setItemVoadips(itemVoadips);
-
-                voadips.add(voadip);
-            }
-            doc.setVoadips(voadips);
-
-            docs.add(doc);
-        }
-
-        if (!sm.createDb()) {
-            dbHelper.insertDoc(docs);
-            sm.saveSPBoolean(SessionManager.SM_CREATE_DB, true);
-        }
     }
 
     @Override
@@ -125,18 +68,23 @@ public class PlanningFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        getPlanFromServer();
-
-        adapter = new PlanningAdapter(getContext(), getActivity());
-
         rvPlanning = view.findViewById(R.id.rvPlanning);
-        rvPlanning.setAdapter(adapter);
+
+        docViewModel = ViewModelProviders.of(this).get(DocViewModel.class);
+        docViewModel.init();
+        docViewModel.getListDoc().observe(this, new Observer<List<Doc>>() {
+            @Override
+            public void onChanged(List<Doc> docList) {
+                adapter = new PlanningAdapter(getContext(), getActivity(), docList);
+                rvPlanning.setAdapter(adapter);
+            }
+        });
 
         btnSync = view.findViewById(R.id.btnSync);
         btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.syncPlanning(docs);
+
             }
         });
     }
@@ -154,43 +102,5 @@ public class PlanningFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         void onGetPlanInteraction(String date);
-    }
-
-    public void getPlanFromServer() {
-        String test = "test";
-
-        Call<ResponseBody> call = RetrofitInstance.docService().getPlanningDoc("2019-11-10");
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        JSONArray jsonArray = jsonObject.getJSONArray("content");
-
-                        if (jsonArray.length() > 0) {
-                            Toast.makeText(getContext(), "Receive data successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                if (t.getMessage().equalsIgnoreCase("timeout")) {
-                    Toast.makeText(getContext(), "Connection failure", Toast.LENGTH_LONG).show();
-                }
-
-                if (t.getMessage().contains("failed to connect")) {
-                    Toast.makeText(getContext(), "Server not contactable", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 }

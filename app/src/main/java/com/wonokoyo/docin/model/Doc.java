@@ -1,21 +1,57 @@
 package com.wonokoyo.docin.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Doc implements Serializable {
+    @SerializedName("noOpDoc")
+    @Expose
     private String noOpDoc;
+
+    @SerializedName("tanggalDoc")
+    @Expose
     private String tanggalDoc;
-    private String noSj;
+
+    @SerializedName("mitra")
+    @Expose
     private String mitra;
+
+    @SerializedName("noreg")
+    @Expose
     private String noreg;
+
+    @SerializedName("kandang")
+    @Expose
     private int kandang;
+
+    @SerializedName("alamat")
+    @Expose
     private String alamat;
+
+    @SerializedName("populasi")
+    @Expose
     private int populasi;
+
+    @SerializedName("jumlahBox")
+    @Expose
     private int jumlahBox;
+
+    @SerializedName("nopol")
+    @Expose
     private String nopol;
+
+    @SerializedName("sopir")
+    @Expose
     private String sopir;
+
+    @SerializedName("kedatangan")
+    @Expose
     private String kedatangan;
+
+    private String noSj;
     private String jenis;
     private int mati;
     private int ekorTerima;
