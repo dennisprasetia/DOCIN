@@ -72,19 +72,18 @@ public class PlanningFragment extends Fragment {
 
         docViewModel = ViewModelProviders.of(this).get(DocViewModel.class);
         docViewModel.init();
-        docViewModel.getListDoc().observe(this, new Observer<List<Doc>>() {
-            @Override
-            public void onChanged(List<Doc> docList) {
-                adapter = new PlanningAdapter(getContext(), getActivity(), docList);
-                rvPlanning.setAdapter(adapter);
-            }
-        });
 
         btnSync = view.findViewById(R.id.btnSync);
         btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                docViewModel.mutableLiveData.observe(getParentFragment(), new Observer<List<Doc>>() {
+                    @Override
+                    public void onChanged(List<Doc> docList) {
+                        adapter = new PlanningAdapter(getContext(), getActivity(), docList);
+                        rvPlanning.setAdapter(adapter);
+                    }
+                });
             }
         });
     }
