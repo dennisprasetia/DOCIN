@@ -15,19 +15,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DocViewModel extends ViewModel {
-    public MutableLiveData<List<Doc>> mutableLiveData;
+    private MutableLiveData<List<Doc>> mutableLiveData;
     private DocRepository docRepository;
 
     public void init() {
         if (mutableLiveData != null)
             return;
 
+        mutableLiveData = new MutableLiveData<>();
         docRepository = DocRepository.getInstance();
-        populateListDoc();
+        mutableLiveData.setValue(new ArrayList<Doc>());
     }
 
-    private void populateListDoc() {
-        mutableLiveData = new MutableLiveData<>();
+    public LiveData<List<Doc>> getListDoc() {
+        return mutableLiveData;
+    }
+
+    public void populateListDoc() {
         Callback<List<Doc>> listener = new Callback<List<Doc>>() {
             @Override
             public void onResponse(Call<List<Doc>> call, Response<List<Doc>> response) {
@@ -43,5 +47,9 @@ public class DocViewModel extends ViewModel {
         };
 
         docRepository.getAllDoc("2019-11-10", listener);
+    }
+
+    public void saveDoc() {
+
     }
 }

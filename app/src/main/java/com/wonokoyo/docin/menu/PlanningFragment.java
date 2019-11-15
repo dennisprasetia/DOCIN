@@ -1,6 +1,7 @@
 package com.wonokoyo.docin.menu;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -50,12 +51,20 @@ public class PlanningFragment extends Fragment {
 
     PlanningAdapter adapter;
 
-    private OnFragmentInteractionListener mListener;
-
     DocViewModel docViewModel;
 
     public PlanningFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        docViewModel = ((MainActivity) getActivity()).getDocViewModel();
+        docViewModel.init();
+
+        adapter = new PlanningAdapter(getContext(), getActivity());
     }
 
     @Override
@@ -67,39 +76,28 @@ public class PlanningFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        rvPlanning = view.findViewById(R.id.rvPlanning);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        docViewModel = ViewModelProviders.of(this).get(DocViewModel.class);
-        docViewModel.init();
-
-        btnSync = view.findViewById(R.id.btnSync);
-        btnSync.setOnClickListener(new View.OnClickListener() {
+        docViewModel.getListDoc().observe(this, new Observer<List<Doc>>() {
             @Override
-            public void onClick(View view) {
-                docViewModel.mutableLiveData.observe(getParentFragment(), new Observer<List<Doc>>() {
-                    @Override
-                    public void onChanged(List<Doc> docList) {
-                        adapter = new PlanningAdapter(getContext(), getActivity(), docList);
-                        rvPlanning.setAdapter(adapter);
-                    }
-                });
+            public void onChanged(List<Doc> docList) {
+                adapter.syncPlanning(docList);
             }
         });
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        try {
-            mListener = (OnFragmentInteractionListener) getActivity();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        rvPlanning = view.findViewById(R.id.rvPlanning);
+        rvPlanning.setAdapter(adapter);
 
-    public interface OnFragmentInteractionListener {
-        void onGetPlanInteraction(String date);
+        btnSync = view.findViewById(R.id.btnSync);
+        btnSync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                docViewModel.populateListDoc();
+            }
+        });
     }
 }

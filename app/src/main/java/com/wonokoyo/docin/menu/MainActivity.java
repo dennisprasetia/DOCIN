@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,11 +20,11 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.wonokoyo.docin.R;
+import com.wonokoyo.docin.model.viewmodel.DocViewModel;
 
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener, PlanningFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
     private NavController navController;
@@ -91,8 +93,7 @@ public class MainActivity extends AppCompatActivity implements
         tvUser.setText(getIntent().getStringExtra("username"));
     }
 
-    @Override
-    public void onGetPlanInteraction(String date) {
-
+    public DocViewModel getDocViewModel() {
+        return ViewModelProviders.of(this).get(DocViewModel.class);
     }
 }

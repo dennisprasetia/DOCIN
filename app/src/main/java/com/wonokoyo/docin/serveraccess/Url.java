@@ -5,4 +5,5 @@ public class Url {
 
     // doc in
     public static final String GET_PLANNING_DOC = "get_planning_doc";
+    public static final String SAVE_DOC = "save_doc";
 }

@@ -24,8 +24,8 @@ public class PlanningAdapter extends RecyclerView.Adapter<PlanningAdapter.Planni
     Context mContext;
     Activity mActivity;
 
-    public PlanningAdapter(Context context, Activity activity, List<Doc> docs) {
-        this.listPlanning = docs;
+    public PlanningAdapter(Context context, Activity activity) {
+        this.listPlanning = new ArrayList<>();
         this.mContext = context;
         this.mActivity = activity;
     }
@@ -62,7 +62,7 @@ public class PlanningAdapter extends RecyclerView.Adapter<PlanningAdapter.Planni
     public void syncPlanning(List<Doc> listPlanning) {
         this.listPlanning.clear();
         this.listPlanning.addAll(listPlanning);
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     public static class PlanningViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
