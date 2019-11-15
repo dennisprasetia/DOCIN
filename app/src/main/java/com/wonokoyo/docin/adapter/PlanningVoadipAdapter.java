@@ -15,9 +15,10 @@ import com.wonokoyo.docin.R;
 import com.wonokoyo.docin.model.Voadip;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlanningVoadipAdapter extends RecyclerView.Adapter<PlanningVoadipAdapter.VoadipViewHolder> {
-    ArrayList<Voadip> listVoadip;
+    List<Voadip> listVoadip;
     Context mContext;
     Activity mActivity;
 
@@ -72,7 +73,7 @@ public class PlanningVoadipAdapter extends RecyclerView.Adapter<PlanningVoadipAd
         return listVoadip.size();
     }
 
-    public void syncDetailPlanning(ArrayList<Voadip> listVoadip) {
+    public void syncDetailPlanning(List<Voadip> listVoadip) {
         this.listVoadip.clear();
         this.listVoadip.addAll(listVoadip);
         notifyDataSetChanged();

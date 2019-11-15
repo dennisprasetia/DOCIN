@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Doc implements Serializable {
     @SerializedName("noOpDoc")
@@ -59,7 +60,10 @@ public class Doc implements Serializable {
     private String keterangan;
     private String url;
     private String urlSign;
-    private ArrayList<Voadip> voadips;
+
+    @SerializedName("voadips")
+    @Expose
+    private List<Voadip> voadips;
 
     public Doc() {
 
@@ -221,7 +225,7 @@ public class Doc implements Serializable {
         this.voadips = voadips;
     }
 
-    public ArrayList<Voadip> getVoadips() {
+    public List<Voadip> getVoadips() {
         return voadips;
     }
 }

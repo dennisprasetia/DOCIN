@@ -73,7 +73,7 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void insertVoadip(int id_doc, ArrayList<Voadip> listVoadip) {
+    public void insertVoadip(int id_doc, List<Voadip> listVoadip) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         for (int i = 0; i < listVoadip.size(); i++) {

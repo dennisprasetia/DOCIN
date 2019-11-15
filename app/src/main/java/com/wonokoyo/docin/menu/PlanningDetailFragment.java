@@ -17,6 +17,9 @@ import android.widget.TextView;
 import com.wonokoyo.docin.R;
 import com.wonokoyo.docin.adapter.PlanningVoadipAdapter;
 import com.wonokoyo.docin.model.Doc;
+import com.wonokoyo.docin.model.Voadip;
+
+import java.util.ArrayList;
 
 public class PlanningDetailFragment extends Fragment {
 
@@ -50,8 +53,10 @@ public class PlanningDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if (getArguments() != null)
+        if (getArguments() != null) {
             mDoc = PlanningDetailFragmentArgs.fromBundle(getArguments()).getDetailDoc();
+            mDoc.setVoadips(new ArrayList<Voadip>());
+        }
 
         return inflater.inflate(R.layout.fragment_planning_detail, container, false);
     }
