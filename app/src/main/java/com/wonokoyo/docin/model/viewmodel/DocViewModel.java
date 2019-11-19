@@ -5,10 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.wonokoyo.docin.model.Doc;
-import com.wonokoyo.docin.model.DocRepository;
+import com.wonokoyo.docin.model.repository.DocRepository;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class DocViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<Doc>> call, Throwable t) {
-                System.out.println("dodo");
+                System.out.println("failed");
                 mutableLiveData.setValue(new ArrayList<Doc>());
             }
         };

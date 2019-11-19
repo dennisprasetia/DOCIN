@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationView;
 import com.wonokoyo.docin.R;
 import com.wonokoyo.docin.model.viewmodel.DocViewModel;
+import com.wonokoyo.docin.model.viewmodel.VoadipViewModel;
 
 import java.util.Set;
 
@@ -95,5 +96,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public DocViewModel getDocViewModel() {
         return ViewModelProviders.of(this).get(DocViewModel.class);
+    }
+
+    public VoadipViewModel getVoadipViewModel() {
+        return ViewModelProviders.of(this).get(VoadipViewModel.class);
     }
 }

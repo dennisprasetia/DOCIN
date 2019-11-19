@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.wonokoyo.docin.R;
+import com.wonokoyo.docin.model.Voadip;
+import com.wonokoyo.docin.model.viewmodel.VoadipViewModel;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -27,6 +30,8 @@ public class BapVoadipFragment extends Fragment implements ZXingScannerView.Resu
     private final static int REQUEST_CAMERA_CODE = 10;
 
     private FrameLayout frameLayout;
+
+    VoadipViewModel voadipViewModel;
 
     public BapVoadipFragment() {
         // Required empty public constructor
@@ -43,9 +48,25 @@ public class BapVoadipFragment extends Fragment implements ZXingScannerView.Resu
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        voadipViewModel = ((MainActivity) getActivity()).getVoadipViewModel();
+        voadipViewModel.init();
+
         mScannerView = new ZXingScannerView(getActivity());
 
         frameLayout = view.findViewById(R.id.flScannerVoadip);
+
+        voadipViewModel.getLiveVoadip().observe(this, new Observer<Voadip>() {
+            @Override
+            public void onChanged(Voadip voadip) {
+                if (voadip != null) {
+
+                } else {
+                    Toast.makeText(getActivity(), "No OP Tidak ditemukan",
+                            Toast.LENGTH_SHORT).show();
+                    mScannerView.resumeCameraPreview(BapVoadipFragment.this);
+                }
+            }
+        });
     }
 
     @Override
@@ -68,12 +89,10 @@ public class BapVoadipFragment extends Fragment implements ZXingScannerView.Resu
 
     @Override
     public void handleResult(Result rawResult) {
-        Toast.makeText(getActivity(), "Contents = " + rawResult.getText() +
-                ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
+        final String noOp = rawResult.getText();
 
-        if (rawResult.getText().equalsIgnoreCase("confirmed")) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_nav_bap_voadip_to_voadip_information);
-        }
+        voadipViewModel.getVoadipByOp(noOp);
+
         // Note:
         // * Wait 2 seconds to resume the preview.
         // * On older devices continuously stopping and resuming camera preview can result in freezing the app.

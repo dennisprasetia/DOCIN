@@ -107,11 +107,6 @@ public class BapDocFragment extends Fragment implements ZXingScannerView.ResultH
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
     public void handleResult(Result rawResult) {
         final String noOp = rawResult.getText();
 

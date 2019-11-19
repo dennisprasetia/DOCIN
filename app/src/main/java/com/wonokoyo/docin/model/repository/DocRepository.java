@@ -1,9 +1,9 @@
-package com.wonokoyo.docin.model;
+package com.wonokoyo.docin.model.repository;
 
+import com.wonokoyo.docin.model.Doc;
 import com.wonokoyo.docin.serveraccess.RetrofitInstance;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.List;
@@ -19,9 +19,9 @@ public class DocRepository {
     private static DocRepository docRepository;
 
     public static DocRepository getInstance() {
-        if (docRepository == null) {
+        if (docRepository == null)
             docRepository = new DocRepository();
-        }
+
         return docRepository;
     }
 

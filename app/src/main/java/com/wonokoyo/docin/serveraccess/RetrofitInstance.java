@@ -1,6 +1,7 @@
 package com.wonokoyo.docin.serveraccess;
 
 import com.wonokoyo.docin.serveraccess.service.DocService;
+import com.wonokoyo.docin.serveraccess.service.VoadipService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,5 +21,9 @@ public class RetrofitInstance {
 
     public static DocService docService() {
         return RetrofitInstance.getRetrofit().create(DocService.class);
+    }
+
+    public static VoadipService voadipService() {
+        return RetrofitInstance.getRetrofit().create(VoadipService.class);
     }
 }
