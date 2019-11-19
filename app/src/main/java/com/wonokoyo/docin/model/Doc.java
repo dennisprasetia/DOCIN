@@ -3,6 +3,9 @@ package com.wonokoyo.docin.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +55,40 @@ public class Doc implements Serializable {
     @Expose
     private String kedatangan;
 
+    @SerializedName("penerimaan")
+    @Expose
+    private String penerimaan;
+
+    @SerializedName("noSj")
+    @Expose
     private String noSj;
+
+    @SerializedName("jenis")
+    @Expose
     private String jenis;
+
+    @SerializedName("mati")
+    @Expose
     private int mati;
+
+    @SerializedName("ekorTerima")
+    @Expose
     private int ekorTerima;
+
+    @SerializedName("bbRata")
+    @Expose
     private double bbRata;
+
+    @SerializedName("keterangan")
+    @Expose
     private String keterangan;
+
+    @SerializedName("url")
+    @Expose
     private String url;
+
+    @SerializedName("urlSign")
+    @Expose
     private String urlSign;
 
     @SerializedName("voadips")
@@ -165,6 +195,14 @@ public class Doc implements Serializable {
         this.kedatangan = kedatangan;
     }
 
+    public String getPenerimaan() {
+        return penerimaan;
+    }
+
+    public void setPenerimaan(String penerimaan) {
+        this.penerimaan = penerimaan;
+    }
+
     public String getJenis() {
         return jenis;
     }
@@ -227,5 +265,28 @@ public class Doc implements Serializable {
 
     public List<Voadip> getVoadips() {
         return voadips;
+    }
+
+    public JSONObject toJson() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("noOpDoc", this.noOpDoc);
+        jsonObject.put("tanggalDoc", this.tanggalDoc);
+        jsonObject.put("mitra", this.mitra);
+        jsonObject.put("noreg", this.noreg);
+        jsonObject.put("kandang", this.kandang);
+        jsonObject.put("alamat", this.alamat);
+        jsonObject.put("populasi", this.populasi);
+        jsonObject.put("jumlahBox", this.jumlahBox);
+        jsonObject.put("nopol", this.nopol);
+        jsonObject.put("sopir", this.sopir);
+        jsonObject.put("kedatangan", this.kedatangan);
+        jsonObject.put("noSj", this.noSj);
+        jsonObject.put("jenis", this.jenis);
+        jsonObject.put("mati", this.mati);
+        jsonObject.put("ekorTerima", this.ekorTerima);
+        jsonObject.put("bbRata", this.bbRata);
+        jsonObject.put("keterangan", this.keterangan);
+
+        return jsonObject;
     }
 }

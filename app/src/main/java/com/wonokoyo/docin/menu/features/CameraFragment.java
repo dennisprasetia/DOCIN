@@ -208,7 +208,7 @@ public class CameraFragment extends Fragment {
 
     private File createImageFilename() throws IOException {
         String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String prepend = "DOC_" + time;
+        String prepend = "DOCIN_" + time;
         File imageFile = File.createTempFile(prepend, ".jpg", imageFolder);
 
         imageFilename = imageFile.getAbsolutePath();

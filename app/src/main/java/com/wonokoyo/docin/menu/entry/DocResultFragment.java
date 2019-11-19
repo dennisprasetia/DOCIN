@@ -71,7 +71,7 @@ public class DocResultFragment extends Fragment {
         tvResultKedatangan = view.findViewById(R.id.tvResultKedatangan);
         tvResultKedatangan.setText(mDoc.getKedatangan());
         tvResultPenerimaan = view.findViewById(R.id.tvResultPenerimaan);
-        tvResultPenerimaan.setText(mDoc.getKedatangan());
+        tvResultPenerimaan.setText(mDoc.getPenerimaan());
         tvResultJenisDoc = view.findViewById(R.id.tvResultJenisDoc);
         tvResultJenisDoc.setText(mDoc.getJenis());
         tvResultJumlahBox = view.findViewById(R.id.tvResultJumlahBox);
@@ -95,7 +95,7 @@ public class DocResultFragment extends Fragment {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_doc_result_to_nav_bap_doc);
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.nav_home);
             }
         });
     }

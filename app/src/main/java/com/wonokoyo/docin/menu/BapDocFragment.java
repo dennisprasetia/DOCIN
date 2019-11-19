@@ -3,11 +3,13 @@ package com.wonokoyo.docin.menu;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
@@ -20,8 +22,12 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import com.wonokoyo.docin.R;
 import com.wonokoyo.docin.model.Doc;
+import com.wonokoyo.docin.model.viewmodel.DocViewModel;
 import com.wonokoyo.docin.sqlite.DbHelper;
 import com.wonokoyo.docin.sqlite.DbService;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -32,6 +38,8 @@ public class BapDocFragment extends Fragment implements ZXingScannerView.ResultH
     private FrameLayout frameLayout;
 
     DbService dbService;
+
+    DocViewModel docViewModel;
 
     public BapDocFragment() {
         // Required empty public constructor
@@ -50,9 +58,34 @@ public class BapDocFragment extends Fragment implements ZXingScannerView.ResultH
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        docViewModel = ((MainActivity) getActivity()).getDocViewModel();
+        docViewModel.init();
+
         mScannerView = new ZXingScannerView(getActivity());
 
         frameLayout = view.findViewById(R.id.flScanner);
+
+        docViewModel.getLiveDoc().observe(this, new Observer<Doc>() {
+            @Override
+            public void onChanged(Doc doc) {
+                if (doc != null) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String date = dateFormat.format(new Date());
+
+                    doc.setKedatangan(date);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("doc", doc);
+
+                    NavHostFragment.findNavController(getParentFragment())
+                            .navigate(R.id.action_nav_bap_doc_to_information_confirm, bundle);
+                } else {
+                    Toast.makeText(getActivity(), "No OP Tidak ditemukan",
+                            Toast.LENGTH_SHORT).show();
+                    mScannerView.resumeCameraPreview(BapDocFragment.this);
+                }
+            }
+        });
     }
 
     @Override
@@ -74,20 +107,15 @@ public class BapDocFragment extends Fragment implements ZXingScannerView.ResultH
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
     public void handleResult(Result rawResult) {
-        Doc doc = dbService.getDocByScanSpj(rawResult.getText());
+        final String noOp = rawResult.getText();
 
-        // cari doc sesuai no op
-        if (doc != null) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("doc", doc);
-
-            NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_nav_bap_doc_to_information_confirm, bundle);
-        } else {
-            Toast.makeText(getActivity(), "No OP = " + rawResult.getText() + " Tidak ditemukan",
-                    Toast.LENGTH_SHORT).show();
-        }
+        docViewModel.getDocByOp(noOp);
 
         // Note:
         // * Wait 2 seconds to resume the preview.

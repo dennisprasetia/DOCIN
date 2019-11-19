@@ -113,11 +113,7 @@
 		android:id="@+id/docResultFragment"
 		android:name="com.wonokoyo.docin.menu.entry.DocResultFragment"
 		android:label="BAP DOC"
-		tools:layout="@layout/fragment_doc_result" >
-		<action
-			android:id="@+id/action_doc_result_to_nav_bap_doc"
-			app:destination="@id/nav_bap_doc" />
-	</fragment>
+		tools:layout="@layout/fragment_doc_result" />
 	<fragment
 		android:id="@+id/voadipInformationFragment"
 		android:name="com.wonokoyo.docin.menu.entry.VoadipInformationFragment"
@@ -140,11 +136,7 @@
 		android:id="@+id/voadipResultFragment"
 		android:name="com.wonokoyo.docin.menu.entry.VoadipResultFragment"
 		android:label="fragment_voadip_result"
-		tools:layout="@layout/fragment_voadip_result" >
-		<action
-			android:id="@+id/action_voadipResultFragment_to_nav_bap_voadip"
-			app:destination="@id/nav_bpb_voadip" />
-	</fragment>
+		tools:layout="@layout/fragment_voadip_result" />
 	<fragment
 		android:id="@id/nav_realisasi"
 		android:name="com.wonokoyo.docin.menu.RealisationFragment"

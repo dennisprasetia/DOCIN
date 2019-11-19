@@ -19,8 +19,12 @@ import android.widget.ImageView;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.wonokoyo.docin.R;
+import com.wonokoyo.docin.menu.MainActivity;
 import com.wonokoyo.docin.model.Doc;
 import com.wonokoyo.docin.model.Voadip;
+import com.wonokoyo.docin.model.viewmodel.DocViewModel;
+
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,6 +45,8 @@ public class SignatureFragment extends Fragment {
     private Doc mDoc;
     private Voadip mVoadip;
 
+    DocViewModel docViewModel;
+
     public SignatureFragment() {
         // Required empty public constructor
     }
@@ -57,6 +63,8 @@ public class SignatureFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        docViewModel = ((MainActivity) getActivity()).getDocViewModel();
+
         session = getArguments().getString("session");
         mDoc = (Doc) getArguments().getSerializable("doc");
         mVoadip = (Voadip) getArguments().getSerializable("voadip");
@@ -94,6 +102,19 @@ public class SignatureFragment extends Fragment {
                     if (session.equalsIgnoreCase("doc")) {
                         mDoc.setUrlSign(signFilename);
 
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String date = dateFormat.format(new Date());
+                        mDoc.setPenerimaan(date);
+
+                        try {
+                            docViewModel.saveDoc(mDoc);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } finally {
+                            docViewModel.uploadAttachment(mDoc.getUrl());
+                            docViewModel.uploadAttachment(mDoc.getUrlSign());
+                        }
+
                         bundle.putSerializable("doc", mDoc);
 
                         NavHostFragment.findNavController(getParentFragment())
@@ -118,7 +139,7 @@ public class SignatureFragment extends Fragment {
 
     private File createSignFilename() throws IOException {
         String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String prepend = "DOC_SIGN_" + time;
+        String prepend = "DOCIN_SIGN_" + time;
         File imageFile = File.createTempFile(prepend, ".jpg", signFolder);
 
         signFilename = imageFile.getAbsolutePath();
