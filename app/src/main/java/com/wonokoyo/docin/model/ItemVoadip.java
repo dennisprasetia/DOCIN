@@ -1,9 +1,21 @@
 package com.wonokoyo.docin.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class ItemVoadip {
     private Voadip voadip;
+
+    @SerializedName("name")
+    @Expose
     private String name;
+
+    @SerializedName("packing")
+    @Expose
     private String packing;
+
+    @SerializedName("ammount")
+    @Expose
     private int ammount;
 
     public ItemVoadip() {

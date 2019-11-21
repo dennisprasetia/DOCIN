@@ -1,14 +1,30 @@
 package com.wonokoyo.docin.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Voadip implements Serializable {
     private Doc doc;
+
+    @SerializedName("noOp")
+    @Expose
     private String noOp;
+
+    @SerializedName("supplier")
+    @Expose
     private String supplier;
+
+    @SerializedName("tglKirim")
+    @Expose
     private String tglKirim;
-    private ArrayList<ItemVoadip> itemVoadips;
+
+    @SerializedName("itemVoadip")
+    @Expose
+    private List<ItemVoadip> itemVoadips;
 
     public Voadip() {
 
@@ -46,11 +62,11 @@ public class Voadip implements Serializable {
         this.tglKirim = tglKirim;
     }
 
-    public ArrayList<ItemVoadip> getItemVoadips() {
+    public List<ItemVoadip> getItemVoadips() {
         return itemVoadips;
     }
 
-    public void setItemVoadips(ArrayList<ItemVoadip> itemVoadips) {
+    public void setItemVoadips(List<ItemVoadip> itemVoadips) {
         this.itemVoadips = itemVoadips;
     }
 }

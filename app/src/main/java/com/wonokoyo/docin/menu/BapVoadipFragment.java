@@ -59,7 +59,11 @@ public class BapVoadipFragment extends Fragment implements ZXingScannerView.Resu
             @Override
             public void onChanged(Voadip voadip) {
                 if (voadip != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("voadip", voadip);
 
+                    NavHostFragment.findNavController(getParentFragment())
+                            .navigate(R.id.action_nav_bpb_voadip_to_voadip_information, bundle);
                 } else {
                     Toast.makeText(getActivity(), "No OP Tidak ditemukan",
                             Toast.LENGTH_SHORT).show();

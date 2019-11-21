@@ -45,7 +45,7 @@
 		android:label="@string/menu_bpb_voadip"
 		tools:layout="@layout/fragment_bap_voadip" >
 		<action
-			android:id="@+id/action_nav_bap_voadip_to_voadip_information"
+			android:id="@+id/action_nav_bpb_voadip_to_voadip_information"
 			app:destination="@id/voadipInformationFragment" />
 	</fragment>
 

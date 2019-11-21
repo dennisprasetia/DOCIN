@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -18,8 +19,10 @@ import com.wonokoyo.docin.R;
 import com.wonokoyo.docin.adapter.PlanningVoadipAdapter;
 import com.wonokoyo.docin.model.Doc;
 import com.wonokoyo.docin.model.Voadip;
+import com.wonokoyo.docin.model.viewmodel.VoadipViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlanningDetailFragment extends Fragment {
 
@@ -45,6 +48,8 @@ public class PlanningDetailFragment extends Fragment {
 
     PlanningVoadipAdapter voadipAdapter;
 
+    VoadipViewModel voadipViewModel;
+
     public PlanningDetailFragment() {
         // Required empty public constructor
     }
@@ -52,13 +57,28 @@ public class PlanningDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        voadipViewModel = ((MainActivity) getActivity()).getVoadipViewModel();
+        voadipViewModel.init();
+
         // Inflate the layout for this fragment
-        if (getArguments() != null) {
+        if (getArguments() != null)
             mDoc = PlanningDetailFragmentArgs.fromBundle(getArguments()).getDetailDoc();
-            mDoc.setVoadips(new ArrayList<Voadip>());
-        }
 
         return inflater.inflate(R.layout.fragment_planning_detail, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        voadipViewModel.getLiveListVoadip().observe(this, new Observer<List<Voadip>>() {
+            @Override
+            public void onChanged(List<Voadip> voadips) {
+                for (int i = 0; i < voadips.size(); i++) {
+                    voadips.get(i).setDoc(mDoc);
+                }
+                voadipAdapter.syncDetailPlanning(voadips);
+            }
+        });
     }
 
     @Override
@@ -69,7 +89,7 @@ public class PlanningDetailFragment extends Fragment {
         rvDetailVoadip = view.findViewById(R.id.rvVoadip);
         rvDetailVoadip.setAdapter(voadipAdapter);
 
-        voadipAdapter.syncDetailPlanning(mDoc.getVoadips());
+        voadipViewModel.getListVoadipByNoreg(mDoc.getNoreg(), mDoc.getTanggalDoc());
 
         tvNoOpDoc = view.findViewById(R.id.tvNoOpDoc);
         tvTglDoc = view.findViewById(R.id.tvTglDoc);
